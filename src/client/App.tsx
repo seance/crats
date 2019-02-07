@@ -39,7 +39,7 @@ class App extends Component<{}, AppState> {
             Server says: {this.state.message || 'Loading...'}
           </p>
           <p>
-            Lib says: {lib.foo(42)}
+            Lib says: {lib.foo(41)}
           </p>
           <a
             className="App-link"

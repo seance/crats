@@ -1,1 +1,3 @@
-export const foo = (x: number) => `Hello ${x} World`;
+import * as R from 'ramda';
+
+export const foo = (x: number) => `Hello ${R.inc(x)} World`;
