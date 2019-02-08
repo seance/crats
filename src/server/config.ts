@@ -9,5 +9,5 @@ export interface Config {
 
 export const config: Config = {
   interface: process.env.SERVER_INTERFACE || 'localhost',
-  port: parseInt(process.env.SERVER_PORT || '8080'),
+  port: parseInt(process.env.SERVER_PORT || '8080', 10),
 };

@@ -24,10 +24,10 @@ class App extends Component<{}, AppState> {
     };
   }
 
-  componentDidMount() {
-    fetchJson('/api/v1/message').then((res) => res.json()).then((res: MessageResponse) => {
-      this.setState({ message: res.message });
-    });
+  async componentDidMount() {
+    const response = await fetchJson('/api/v1/message');
+    const { message }: MessageResponse = await response.json();
+    this.setState({ message });
   }
 
   render() {

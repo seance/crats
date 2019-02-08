@@ -32,5 +32,6 @@ const server = app.listen(config.port, config.interface, () => {
     [isAddressInfo, ({ address, port }) => `${address}:${port}`],
   ]);
 
+  // tslint:disable-next-line:no-console
   console.log(`Listening at ${addressString(server.address())}...`);
 });

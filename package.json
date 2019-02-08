@@ -12,7 +12,8 @@
     "@types/react-dom": "16.8.0",
     "concurrently": "^4.1.0",
     "dotenv": "^6.2.0",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "tslint": "^5.12.1"
   },
   "dependencies": {
     "express": "^4.16.4",
@@ -24,15 +25,19 @@
   },
   "scripts": {
     "eject": "react-scripts eject",
-    "start": "concurrently --prefix '[{name}]' --names 'CLIENT,BUILD-SERVER,SERVER' -c 'bgBlue.bold,bgGreen.bold,bgYellow.bold' 'yarn run start-client' 'yarn run watch-build-server' 'yarn run watch-start-server'",
-    "build": "yarn run build-client && yarn run build-server",
+    "start": "concurrently -p '[{name}]' -n 'CLIENT,LINT,BUILD-SERVER,SERVER' -c 'bgBlue.bold,bgCyan.bold,bgGreen.bold,bgYellow.bold' 'yarn run start-client' 'yarn run watch-lint' 'yarn run watch-build-server' 'yarn run watch-start-server'",
+    "build": "yarn run lint && yarn run build-client && yarn run build-server",
+    "lint": "yarn run lint-client && yarn run lint-server",
     "clean": "rm -rf build && rm -rf build-server",
     "start-prod": "node ./build-server/server/server.js",
     "start-client": "react-scripts start",
     "build-client": "react-scripts build",
     "test-client": "react-scripts test",
-    "watch-build-server": "nodemon -L --watch src/common --watch src/server --ext ts --delay 1 --exec 'yarn run build-server || exit 1'",
+    "lint-client": "tslint --project tsconfig.json -c tslint.json src/{client,common}/*.{ts,tsx}",
     "build-server": "tsc --build ./tsconfig.server.json",
+    "lint-server": "tslint --project tsconfig.server.json -c tslint.json src/{server,common}/*.{ts,tsx}",
+    "watch-lint": "nodemon -L --watch src --ext ts,tsx --delay 1 --exec 'yarn run lint || exit 1'",
+    "watch-build-server": "nodemon -L --watch src/common --watch src/server --ext ts --delay 1 --exec 'yarn run build-server || exit 1'",
     "watch-start-server": "nodemon -L --on-change-only --delay 2 --watch build-server/common --watch build-server/server --ext js --exec 'yarn run start-prod || exit 1'"
   },
   "eslintConfig": {
